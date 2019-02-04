@@ -54,7 +54,7 @@ class SecurityController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('infoclient');
         }
  
         return $this->render('security/register.html.twig');
