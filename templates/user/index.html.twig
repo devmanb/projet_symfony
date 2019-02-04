@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}utilisateur{% endblock %}
+
+{% block body %}
+
+<div class="col-12" style="margin-top:10px;"><a style="padding:5px;" href="{{ path('home') }}">Accueil</a>><a style="padding:5px;" href="{{ path('user_index') }}">Utilisateur</a></div>
+            <hr>
+
+    <h3 class="col-12">Utilisateur</h3>
+    <div class="col-12" style="margin-bottom:10px;">
+        <a class="btn btn-success" style="margin-left:10px;background-color:#7e57c2;border-color:#7e57c2" href="{{ path('user_new') }}">Créer utilisateur</a>
+    </div>
+    <div class="col-12">
+
+    <table class="table table-light">
+        <thead>
+            <tr style="text-align:center;">
+                <th>E-mail</th>
+                <th>Rôles</th>
+                <th>Nom</th>
+                <th>Activée</th>
+                <th>Fonction</th>
+                <th>Avatar</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr style="text-align:center;">
+                <td style="{{ user.enabled ? 'color:green' : 'color:red' }}">{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td style="{{ user.enabled ? 'color:green' : 'color:red' }}">{{ user.username }}</td>
+                <td style="text-align:center;{{ user.enabled ? 'color:green' : 'color:red' }}">{{ user.enabled ? 'Oui' : 'Non' }}</td>
+                <td style="text-align:center;">{{ user.fonction ? user.fonction: '-' }}</td>
+                <td style="text-align:center;">{{ user.avatar }} -</td>
+                <td>
+                    <a href="{{ path('user_show', {'id': user.id}) }}">Voir</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6" class="col-12" style="text-align:center">Aucun enregistrement</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

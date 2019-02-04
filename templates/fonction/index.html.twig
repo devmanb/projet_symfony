@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fonction{% endblock %}
+
+{% block body %}
+
+<div class="col-12" style="margin-top:10px;"><a style="padding:5px;" href="{{ path('home') }}">Accueil</a>><a style="padding:5px;" href="{{ path('fonction_index')}}">Fonction</a></div>
+            <hr>
+
+    <h3 class="col-12">Fonction</h3>
+    <div class="col-12" style="margin-bottom:10px;">
+        <a class="btn btn-success" style="margin-left:10px;background-color:#7e57c2;border-color:#7e57c2" href="{{ path('fonction_new') }}">Créer fonction</a>
+    </div>
+    <div class="col-12">
+    <table class="table" style="background:white;">
+        <thead>
+            <tr>
+                <th>Terme</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for fonction in fonctions %}
+            <tr>
+                <td>{{ fonction.terme | title}}</td>
+                <td>
+                    <a href="{{ path('fonction_edit', {'id': fonction.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2"  class="col-12" style="text-align:center">Aucun enregistrement</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

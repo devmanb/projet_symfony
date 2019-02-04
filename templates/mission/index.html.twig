@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mission{% endblock %}
+
+{% block body %}
+<div class="col-12" style="margin-top:10px;"><a style="padding:5px;" href="{{ path('home')}}">Accueil</a>><a style="padding:5px;" href="{{ path('mission_index')}}">Mission</a></div>
+            <hr>
+    <h3 class="col-12">Mission</h3>
+    <div class="col-12" style="margin-bottom:10px;">
+        <a class="btn btn-success" style="margin-left:10px;background-color:#7e57c2;border-color:#7e57c2" href="
+            {% if app.user.getFonction() is not null %}
+                {{ path('mission_new_admin')}}
+            {% else %}
+                {{path('mission_new_client')}}
+            {% endif %}
+           ">Créer mission</a>
+    </div>
+    <div class="col-12">
+        <table class="table" style="background-color:white;">
+            <thead>
+                <tr>
+                    
+                    <th>Nom du client</th>
+                    <th>Intervenant</th>
+                    <th>Situé</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Rapport</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for mission in missions %}
+            
+              {% if mission.getUserClient().email == app.user.email %}
+                <tr>
+                    <td>{{ mission.getUserClient() }}</td>
+                    <td>
+                       {% for item in mission.getUser() %}
+                                       {{ item.username | title}}<br/>       
+                                           {% endfor %}                    
+
+                    </td>
+                    <td>{{ mission.getSite().adresse }}</td>
+                    <td>{{ mission.dateDebut ? mission.dateDebut|date("m/d/Y") : '' }}</td>
+                    <td>{{ mission.dateFin ? mission.dateFin|date("m/d/Y") : '' }}</td>
+                    <td color="green"></td>
+                    <td>
+                        <a href="{{ path('mission_show', {'id': mission.id}) }}">Voir</a>
+                        <a href="{{ path('mission_edit', {'id': mission.id}) }}">Editer</a>
+                        {##<a href="{{ path('mission_edit_rapport', {'id': mission.id}) }}">Rapport</a>##}
+                    </td>
+                </tr>
+                {% endif %}
+            {% else %}
+                <tr>
+                    <td class="col-12" style="text-align:center" colspan="7">Aucun enregistrement</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+{% endblock %}

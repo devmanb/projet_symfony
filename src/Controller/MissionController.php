@@ -1,0 +1,174 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Mission;
+use App\Entity\Site;
+use App\Form\MissionType;
+use App\Form\SiteType;
+use App\Repository\MissionRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+
+/**
+ * @Route("user/mission")
+ */
+class MissionController extends AbstractController
+{
+    /**
+     * @Route("/", name="mission_index", methods={"GET"})
+     */
+    public function index(MissionRepository $missionRepository,AuthorizationCheckerInterface $authChecker): Response
+    {
+
+        if(false===$authChecker->isGranted('IS_AUTHENTICATED_FULLY'))
+         return $this->redirectToRoute('infoclient');
+        return $this->render('mission/index.html.twig', [
+            'missions' => $missionRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/new-client", name="mission_new_client", methods={"GET","POST"})
+     */
+    public function new_client(Request $request,AuthorizationCheckerInterface $authChecker): Response
+    {
+
+        if(false===$authChecker->isGranted('IS_AUTHENTICATED_FULLY'))
+         return $this->redirectToRoute('app_login');
+
+        $mission = new Mission();
+        $form = $this->createForm(MissionType::class, $mission);
+        $form->remove('user_client');
+        $form->remove('user');
+        $form->remove('rapport');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            // dd($form->get('terme')->getData());
+            $mission->setUserClient($this->getUser());
+            $mission->addTerme($form->get('terme')->getData()[0]);
+            $entityManager->persist($mission);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('mission_index');
+        }
+
+
+        return $this->render('mission/mission_new_client.html.twig', [
+            'mission' => $mission,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/new-admin", name="mission_new_admin", methods={"GET","POST"})
+     */
+    public function new_admin(Request $request,AuthorizationCheckerInterface $authChecker): Response
+    {
+
+        if(false===$authChecker->isGranted('IS_AUTHENTICATED_FULLY'))
+         return $this->redirectToRoute('app_login');
+
+        $mission = new Mission();
+        $form = $this->createForm(MissionType::class, $mission);
+        $form->remove('rapport');
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            // dd($form->get('terme')->getData());
+            $mission->addTerme($form->get('terme')->getData()[0]);
+            $entityManager->persist($mission);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('mission_index');
+        }
+
+
+        return $this->render('mission/new.html.twig', [
+            'mission' => $mission,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}", name="mission_show", methods={"GET"})
+     */
+    public function show(Mission $mission): Response
+    {
+        return $this->render('mission/show.html.twig', [
+            'mission' => $mission,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="mission_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Mission $mission): Response
+    {
+        $form = $this->createForm(MissionType::class, $mission);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('mission_index', [
+                'id' => $mission->getId(),
+            ]);
+        }
+
+        return $this->render('mission/edit.html.twig', [
+            'mission' => $mission,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/{id}/edit_rapport", name="mission_edit_rapport", methods={"GET","POST"})
+     */
+    public function edit_rapport(Request $request, Mission $mission): Response
+    {
+        $form = $this->createForm(MissionType::class, $mission);
+        $form->handleRequest($request);
+        $form->remove('site');
+        $form->remove('nom');
+        $form->remove('date_debut');
+        $form->remove('date_fin');
+        $form->remove('terme');
+        $form->remove('user_client');
+        $form->remove('user');
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('mission_index', [
+                'id' => $mission->getId(),
+            ]);
+        }
+
+        return $this->render('mission/edit.html.twig', [
+            'mission' => $mission,
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/{id}", name="mission_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Mission $mission): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$mission->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($mission);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('mission_index');
+    }
+}

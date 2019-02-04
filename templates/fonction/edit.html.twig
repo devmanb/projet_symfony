@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Fonction{% endblock %}
+
+{% block body %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+<div class="example-wrapper">
+    <h3 style="padding-top:10px;" class="col-3">Modifier Fonction</h3>
+
+    {{ include('fonction/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+    <a class="offset-1 btn-info btn" style="background:#7e57c2;" href="{{ path('fonction_index') }}">Retour à la liste</a>
+    {{ include('fonction/_delete_form.html.twig') }}
+</div>
+{% endblock %}

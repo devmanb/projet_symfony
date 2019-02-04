@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Terme{% endblock %}
+
+{% block body %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+    <h1>Create new Terme</h1>
+
+    {{ include('terme/_form.html.twig') }}
+
+    <a href="{{ path('terme_index') }}">back to list</a>
+{% endblock %}

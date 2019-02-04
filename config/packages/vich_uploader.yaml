@@ -1,0 +1,16 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        upload_user:
+            uri_prefix:         '%app.path.upload_user%'
+            upload_destination: '%kernel.root_dir%/../public%app.path.upload_user%'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        upload_intervenant:
+            uri_prefix:         '%app.path.upload_intervenant%'
+            upload_destination: '%kernel.root_dir%/../public%app.path.upload_intervenant%'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        upload_client_logo:
+            uri_prefix:         '%app.path.upload_client_logo%'
+            upload_destination: '%kernel.root_dir%/../public%app.path.upload_client_logo%'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

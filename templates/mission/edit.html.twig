@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Mission{% endblock %}
+
+{% block body %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+<div class="example-wrapper">
+    <h1>Modifier Mission</h1>
+
+    {{ include('mission/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+  <a class="offset-1 btn-info btn" style="background:#7e57c2;"  href="{{ path('mission_index') }}">Retour à la liste</a>
+    {{ include('mission/_delete_form.html.twig') }}
+</div>
+{% endblock %}

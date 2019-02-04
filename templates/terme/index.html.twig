@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Terme{% endblock %}
+
+{% block body %}
+
+<div class="col-12" style="margin-top:10px;"><a style="padding:5px;" href="{{ path('home') }}">Accueil</a>><a style="padding:5px;" href="{{ path('terme_index') }}">Terme</a></div>
+            <hr>
+
+    <h3 class="col-12">Terme de mission</h3>
+    <div class="col-12" style="margin-bottom:10px;">
+        <a class="btn btn-success" style="margin-left:10px;background-color:#7e57c2;border-color:#7e57c2" href="{{ path('terme_new') }}">Créer terme</a>
+    </div>
+    <div class="col-12">
+    <table class="table" style="background:white;">
+        <thead>
+            <tr>
+                <th>Terme</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for terme in termes %}
+            <tr>
+                <td>{{ terme.terme| upper }}</td>
+                <td>
+                    <a href="{{ path('terme_edit', {'id': terme.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3" class="col-12" style="text-align:center">Aucun enregistrement</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

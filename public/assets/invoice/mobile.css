@@ -1,0 +1,106 @@
+/*! Invoice Templates @author: Invoicebus @email: info@invoicebus.com @web: https://invoicebus.com @version: 1.0.0 @updated: 2017-09-07 12:09:32 @license: Invoicebus */
+@media only screen and (max-width: 865px) {
+  #memo .company-info {
+    width: auto;
+  }
+  #memo .payment-info {
+    float: none;
+    clear: both;
+    text-align: left;
+    padding-top: 15px;
+    width: auto;
+  }
+  #memo .payment-info div {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 3px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  #items table tr:after {
+    content: '';
+    display: block;
+    border-top: 1px solid #888;
+  }
+  #items table th {
+    display: none !important;
+  }
+  #items table td {
+    display: block;
+    width: auto;
+    text-align: left;
+  }
+  #items table td:first-child {
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    text-indent: -9999px;
+  }
+
+  #sums {
+    float: none;
+    margin-top: 30px;
+    page-break-inside: avoid;
+  }
+  #sums table {
+    width: 100%;
+  }
+  #sums table tr th, #sums table tr td {
+    min-width: initial;
+    width: 50%;
+  }
+
+  .show-mobile {
+    display: inline !important;
+  }
+
+  .bottom-circles {
+    display: none !important;
+  }
+}
+@media only screen and (max-width: 730px) {
+  #invoice-title-number {
+    margin: 20px 0 10px 0;
+  }
+
+  #invoice-info {
+    margin-top: 20px;
+    float: none;
+    width: auto;
+  }
+  #invoice-info > div {
+    width: 48%;
+  }
+
+  #client-info {
+    margin-top: 25px;
+    float: none;
+    width: auto;
+  }
+}
+@media only screen and (max-width: 600px) {
+  #container {
+    padding: 20px;
+  }
+
+  #memo .logo {
+    float: none;
+    margin-right: 0;
+  }
+  #memo .company-info {
+    float: none;
+    padding-top: 15px;
+    width: auto;
+  }
+  #memo .payment-info div {
+    display: block;
+    margin-bottom: 3px;
+    margin-right: 0;
+  }
+}
+@media only screen and (max-width: 380px) {
+  #invoice-info > div {
+    width: 45%;
+  }
+}

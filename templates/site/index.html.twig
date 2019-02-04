@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Site index{% endblock %}
+
+{% block body %}
+
+<div class="col-12" style="margin-top:10px;"><a style="padding:5px;" href="{{ path('home') }}">Accueil</a>><a style="padding:5px;" href="{{ path('site_index') }}">Site</a></div>
+            <hr>
+    <h3 class="col-12">Site</h3>
+    <div class="col-12" style="margin-bottom:10px;">
+        <a class="btn btn-success" style="margin-left:10px;background-color:#7e57c2;border-color:#7e57c2" href="{{ path('site_new') }}">Créer site</a>
+    </div>
+    <div class="col-12">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Province</th>
+                <th>Region</th>
+                <th>Quartier</th>
+                <th>Adresse</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for site in sites %}
+            <tr>
+                <td>{{ site.province| title }}</td>
+                <td>{{ site.region| title }}</td>
+                <td>{{ site.quartier | title}}</td>
+                <td>{{ site.adresse| title }}</td>
+                <td>
+                    <a href="{{ path('site_edit', {'id': site.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" class="col-12" style="text-align:center">Aucun enregistrement</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

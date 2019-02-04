@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendier{% endblock %}
+
+{% block stylesheet %}
+
+
+<style>
+
+  body {
+    /* margin: 40px 10px; */
+    padding: 0;
+    font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+    font-size: 14px;
+  }
+
+  #calendar {
+    /* max-width: 900px; */
+    float: left;
+    margin-top: 43px;
+   
+  }
+
+</style>
+<link href="{{ asset('assets/fullcalendar.min.css')}}" rel='stylesheet' />
+<link href="{{ asset('assets/fullcalendar.print.min.css')}}" rel='stylesheet' media='print' />
+
+
+{% endblock %}
+{% block javascripts %}
+
+<script src="{{ asset('assets/libs/moment.min.js')}}"></script>
+<script src="{{ asset('assets/libs/jquery.min.js')}}"></script>
+<script src="{{ asset('assets/libs/fullcalendar.min.js')}}"></script>
+
+<script>
+  $(document).ready(function() {
+
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,basicWeek,basicDay',
+      },
+      defaultDate: '2019-01-12',
+      navLinks: true, // can click day/week names to navigate views
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+      events: [
+    {% for mission in missions %}
+        {% if mission is not null and mission.getUserClient().email == app.user.email %}
+        {
+          title: '{{ mission.nom }}     |client :{{ mission.getUserClient()}}  {% if mission.getUser() is not null and mission.getUser() is defined %}{% for item in mission.getUser() %} |{{ item.username | title}};{% endfor %}{% endif %}',
+          start: '{{ mission.dateDebut ? mission.dateDebut|date('Y-m-d') }}',
+          end: '{{ mission.dateFin ? mission.dateFin|date('Y-m-d') }}',
+          color:'#e3e',
+          textColor:'black'
+        },
+        {% endif %}
+     {% endfor %}
+
+      ]
+    });
+
+  });
+</script>
+{% endblock %}
+
+
+
+
+
+{% block body %}
+<div class="col-12 offset-0" id='calendar'>
+ <div/>
+{% endblock %}
