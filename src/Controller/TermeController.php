@@ -22,7 +22,7 @@ class TermeController extends AbstractController
     public function index(TermeRepository $termeRepository,AuthorizationCheckerInterface $authChecker): Response
     {
         
-        if(true === $authChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY'))
+        if(false === $authChecker->isGranted('IS_AUTHENTICATED_FULLY'))
          return $this->redirectToRoute('infoclient');
         return $this->render('terme/index.html.twig', [
             'termes' => $termeRepository->findAll(),

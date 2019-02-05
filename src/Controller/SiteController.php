@@ -22,7 +22,7 @@ class SiteController extends AbstractController
     public function index(SiteRepository $siteRepository,AuthorizationCheckerInterface $authChecker): Response
     {
         
-        if(true === $authChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY'))
+        if(false === $authChecker->isGranted('IS_AUTHENTICATED_FULLY'))
          return $this->redirectToRoute('infoclient');
         return $this->render('site/index.html.twig', [
             'sites' => $siteRepository->findAll(),

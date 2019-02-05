@@ -142,6 +142,7 @@ class MissionController extends AbstractController
         $form->remove('terme');
         $form->remove('user_client');
         $form->remove('user');
+        $form->remove('user');
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
