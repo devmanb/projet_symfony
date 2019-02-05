@@ -3,14 +3,11 @@
 {% block title %}Mission{% endblock %}
 
 {% block body %}
-    <h1>Mission</h1>
-
-    <table class="table">
+    <h1 class="row text-center border-info "><div class="col-6 offset-3 pt-5 border-dark">Fiche de la Mission {{ mission.nom }}</div></h1>
+<div class="row p-5">
+    <div class="col-2"></div>
+    <table class="table table-responsive col">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ mission.id }}</td>
-            </tr>
             <tr>
                 <th>Date_debut</th>
                 <td>{{ mission.dateDebut ? mission.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
@@ -23,12 +20,44 @@
                 <th>Nom</th>
                 <td>{{ mission.nom }}</td>
             </tr>
+            <tr>
+                <th>Intervenant</th>
+                <td>
+                    {% for item in mission.getUser() %}
+                                       {{ item.username | title}}<br/>       
+                                           {% endfor %} 
+
+
+                </td>
+            </tr>
+            <tr>
+                <th>Client</th>
+                <td> {{ mission.getUserClient() }}</td>
+            </tr>
+            <tr>
+                <th>Localisation</th>
+                <td>
+                    Region : <b class="badge badge-success col-auto">{{ mission.site.region }}</b> <br>
+                    <div class="w-100"></div>
+                    Quartier: <b class="badge badge-success col-auto">{{ mission.site.quartier}}</b> <br>
+                    <div class="w-100"></div>
+                    Adresse :<b class="badge badge-success col-auto">{{ mission.site.adresse}}</b>
+
+
+                </td>
+            </tr>
         </tbody>
     </table>
+    <div class="col-2"></div>
+    </div>
+    <div class="row">
+    <div class="col-5"></div>
+    <a class="btn btn-default" href="{{ path('mission_index') }}">Retour à la list</a>
 
-    <a href="{{ path('mission_index') }}">back to list</a>
+    <a class="btn btn-info" href="{{ path('mission_edit', {'id': mission.id}) }}">edit</a>
 
-    <a href="{{ path('mission_edit', {'id': mission.id}) }}">edit</a>
-
-    {{ include('mission/_delete_form.html.twig') }}
+    <div class="btn">
+        {{ include('mission/_delete_form.html.twig') }}
+    </div>
+    </div>
 {% endblock %}
