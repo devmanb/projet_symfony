@@ -19,10 +19,12 @@ class MissionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date_debut', DateType::class,['widget' => 'single_text', 'html5' => false,'attr'=>[
+            ->add('date_debut', DateType::class,['widget' => 'single_text','required' => false,
+    'empty_data' => null, 'format' => 'yyyy-MM-dd', 'html5' => false,'attr'=>[
             'class'=>'datepicker1'
             ]])
-            ->add('date_fin', DateType::class,['widget' => 'single_text', 'html5' => false,'attr'=>[
+            ->add('date_fin', DateType::class,['widget' => 'single_text','required' => false,
+    'empty_data' => null, 'format' => 'yyyy-MM-dd', 'html5' => false,'attr'=>[
             'class'=>'datepicker2'
             ]])
             ->add('nom')

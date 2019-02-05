@@ -81,6 +81,7 @@ class MissionController extends AbstractController {
 		if ($form->isSubmitted() && $form->isValid()) {
 			$entityManager = $this->getDoctrine()->getManager();
 			// dd($form->get('terme')->getData());
+			$mission->setUserClient($this->getUser());
 			$mission->addTerme($form->get('terme')->getData()[0]);
 			$entityManager->persist($mission);
 			$entityManager->flush();
@@ -108,9 +109,14 @@ class MissionController extends AbstractController {
 	 */
 	public function edit(Request $request, Mission $mission):Response {
 		$form = $this->createForm(MissionType::class , $mission);
+		if (is_null($this->getUser()->getFonction())) {
+			$form->remove('user_client');
+			$form->remove('user');
+			$form->remove('rapport');
+		}
 		$form->handleRequest($request);
-
 		if ($form->isSubmitted() && $form->isValid()) {
+
 			$this->getDoctrine()->getManager()->flush();
 
 			return $this->redirectToRoute('mission_index', [

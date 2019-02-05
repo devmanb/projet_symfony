@@ -32,7 +32,7 @@
             <tbody>
             {% for mission in missions %}
             
-              {% if mission.getUserClient().email == app.user.email %}
+              {% if app.user.fonction is not null or app.user.fonction is null and mission.getUserClient().email == app.user.email %}
                 <tr>
                     <td>{{ mission.getUserClient() }}</td>
                     <td>
