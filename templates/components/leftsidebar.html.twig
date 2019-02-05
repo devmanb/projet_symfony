@@ -21,7 +21,7 @@
                 <!-- <li class="nav-divider">
                     Configurations
                 </li> -->
-                {% if app.user is not null and  app.user.fonction is not null and app.user.getFonction() is defined and  app.user.getFonction().id == 1 %}
+                {% if app.user.fonction.id == 1 and  app.user is not null and  app.user.fonction is not null and app.user.getFonction() is defined and  app.user.getFonction().id == 1 %}
                 <li class="nav-divider active">
                     <a href="{{ path('parametre') }}">
                         <i class="fas fa-capsules"></i> {{ 'Paramètre' | trans }}
