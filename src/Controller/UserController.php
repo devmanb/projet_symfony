@@ -22,7 +22,7 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository,AuthorizationCheckerInterface $authChecker): Response
     {
         
-        if(true === $authChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY'))
+        if(false === $authChecker->isGranted('IS_AUTHENTICATED_FULLY'))
          return $this->redirectToRoute('infoclient');
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),

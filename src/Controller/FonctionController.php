@@ -20,7 +20,7 @@ class FonctionController extends AbstractController
      */
     public function index(FonctionRepository $fonctionRepository,AuthorizationCheckerInterface $authChecker): Response
     { 
-        if(true === $authChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY') && !$authChecker->isGranted('ROLE_USER'))
+        if(true ===$authChecker->isGranted('IS_AUTHENTICATED_FULLY') && !$authChecker->isGranted('ROLE_USER'))
          return $this->redirectToRoute('infoclient');
         return $this->render('fonction/index.html.twig', [
             'fonctions' => $fonctionRepository->findAll(),

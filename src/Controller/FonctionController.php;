@@ -19,7 +19,7 @@ class FonctionController extends AbstractController {
 	 * @Route("/", name="fonction_index", methods={"GET"})
 	 */
 	public function index(FonctionRepository $fonctionRepository, AuthorizationCheckerInterface $authChecker):Response {
-		if (true === $authChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+		if (true === $authChecker->isGranted('IS_AUTHENTICATED_FULLY') && !$authChecker->isGranted('ROLE_USER')) {
 			return $this->redirectToRoute('infoclient');
 		}
 
