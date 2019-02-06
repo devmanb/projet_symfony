@@ -112,11 +112,9 @@ class MissionController extends AbstractController {
 		if (is_null($this->getUser()->getFonction())) {
 			$form->remove('user_client');
 			$form->remove('user');
-			$form->remove('rapport');
-		}
-
-		if ($this->getUser()->getFonction()->getId() == 1) {
-			$form->add('rapport');
+			if ($this->getUser()->getFonction()->getId() != 1) {
+				$form->remove('rapport');
+			}
 		}
 
 		$form->handleRequest($request);

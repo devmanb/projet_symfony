@@ -44,7 +44,7 @@
                     <td>{{ mission.getSite().adresse }}</td>
                     <td>{{ mission.dateDebut ? mission.dateDebut|date("m/d/Y") : '' }}</td>
                     <td>{{ mission.dateFin ? mission.dateFin|date("m/d/Y") : '' }}</td>
-                    <td color="green"></td>
+                    <td color="green"> {{ mission.getRapport() }} </td>
                     <td>
                         <a href="{{ path('mission_show', {'id': mission.id}) }}">Voir</a>
                         <a href="{{ path('mission_edit', {'id': mission.id}) }}">Editer</a>

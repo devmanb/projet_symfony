@@ -60,6 +60,25 @@ class SecurityController extends AbstractController
         return $this->render('security/register.html.twig');
     }
 
+    /**
+     * @Route("/register-admin", name="app_register_admin")
+     */
+    public function register_admin(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        if ($request->isMethod('POST')) {
+            $user = new User();
+            $user->setEmail($request->request->get('email'));
+            $user->setUsername($request->request->get('nomComplet'));
+            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('user_index');
+        }
+ 
+        return $this->render('security/register_admin.html.twig');
+    }
+
     // /**
     //  * @Route("/forgottenPassword", name="app_forgotten_password")
     //  */
